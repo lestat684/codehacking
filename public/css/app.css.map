@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAEA;EACE,eAAe,EAChB","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\n\n#admin-page {\n  padding-top: 0;\n}"]}
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAEA;EACE,eAAe,EAChB;;AAED;EACE,wBAAwB,EACzB","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\n\n#admin-page {\n  padding-top: 0;\n}\n\n.navbar-top-links .dropdown-user {\n  height: auto !important;\n}"]}

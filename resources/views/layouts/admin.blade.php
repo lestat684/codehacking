@@ -64,14 +64,7 @@
             </li>
             <!-- /.dropdown -->
 
-
         </ul>
-
-
-
-
-
-
         {{--<ul class="nav navbar-nav navbar-right">--}}
         {{--@if(auth()->guest())--}}
         {{--@if(!Request::is('auth/login'))--}}
@@ -91,11 +84,6 @@
         {{--</li>--}}
         {{--@endif--}}
         {{--</ul>--}}
-
-
-
-
-
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -113,22 +101,20 @@
                     <li>
                         <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/users">All Users</a>
+                                <a href="{{ url('/admin/users') }}">All Users</a>
                             </li>
 
                             <li>
-                                <a href="/users/create">Create User</a>
+                                <a href="{{  url('/admin/users/create') }}">Create User</a>
                             </li>
 
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -143,8 +129,6 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
-
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Categories<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -159,8 +143,6 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
-
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -175,13 +157,6 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
-
-
-
-
-
-
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -275,51 +250,29 @@
         <!-- /.navbar-static-side -->
     </nav>
 
-
-
-
-
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
                     <a href="/profile"><i class="fa fa-dashboard fa-fw"></i>Profile</a>
                 </li>
-
-
-
-
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="">All Posts</a>
                         </li>
-
                         <li>
                             <a href="">Create Post</a>
                         </li>
-
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-
-
-
-
-
             </ul>
-
         </div>
-
     </div>
 
 </div>
-
-
-
-
-
 
 <!-- Page Content -->
 <div id="page-wrapper">
