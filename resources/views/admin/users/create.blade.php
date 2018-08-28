@@ -6,14 +6,16 @@
     @include('includes.form-errors')
 
     {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'files' => true, 'class' => 'col-sm-6 col-md-4']) !!}
+        <div class="form-group avatarposition">
+            <div class="form-group">
+                <img src="" alt='' width="500" class='profileavatar'>
+            </div>
+            {!! Form::label('photo', 'Users photo:') !!}
+            {!! Form::file('photo', ['id' => 'avatar']) !!}
+        </div>
         <div class="form-group">
             {!! Form::label('name', 'User name:') !!}
             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter title']) !!}
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('photo', 'Users photo:') !!}
-            {!! Form::file('photo', ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">

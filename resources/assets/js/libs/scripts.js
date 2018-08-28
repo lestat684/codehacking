@@ -5,29 +5,35 @@
 $(document).ready(function(){
 
     $('#selectAllBoxes').click(function(event){
-
         if(this.checked) {
-
             $('.checkBoxes').each(function(){
-
                 this.checked = true;
-
             });
-
         } else {
-
-
             $('.checkBoxes').each(function(){
-
                 this.checked = false;
-
             });
-
-
         }
-
     });
 
+
+
+    /**************** User avatar preiview display *****/
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profileavatar').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#avatar").change(function(){
+        readURL(this);
+    });
 
 
 
