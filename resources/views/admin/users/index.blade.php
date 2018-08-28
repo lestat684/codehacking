@@ -13,6 +13,7 @@
                 <th>Status</th>
                 <th>Created</th>
                 <th>Updated</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,18 @@
                     <td>{!! $user->is_active ? 'Active' : 'Blocked' !!}</td>
                     <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>{{ $user->updated_at->diffForHumans() }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary">Action</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Options</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('admin.users.edit', [$user->id]) }}">Edit</a>
+                                <a class="dropdown-item" href="{{ route('admin.users.destroy', [$user->id]) }}">Delete</a>
+                            </div>
+                        </div>
+                    </td>
             @endforeach
         </tbody>
     </table>

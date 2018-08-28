@@ -35,7 +35,7 @@
             {!! Form::password('password', ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::submit('Create post', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Create user', ['class' => 'btn btn-primary']) !!}
         </div>
     {!! Form::close() !!}
 @endsection
