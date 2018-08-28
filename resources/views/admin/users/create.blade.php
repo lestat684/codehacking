@@ -5,7 +5,7 @@
 
     @include('includes.form-errors')
 
-    {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'file' => true]) !!}
+    {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'files' => true, 'class' => 'col-sm-6 col-md-4']) !!}
         <div class="form-group">
             {!! Form::label('name', 'User name:') !!}
             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter title']) !!}
@@ -27,6 +27,10 @@
         <div class="form-group">
             {!! Form::label('is_active', 'Status:') !!}
             {!! Form::select('is_active', [1 => 'Active', 0 => 'Blocked'], 1, ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('password', 'Password:') !!}
+            {!! Form::password('password', ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::submit('Create post', ['class' => 'btn btn-primary']) !!}
