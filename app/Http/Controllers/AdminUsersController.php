@@ -6,12 +6,17 @@ use App\Http\Requests\AdminUsersRequest;
 use App\Photo;
 use App\Role;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AdminUsersController extends Controller
 {
+    private $usersPage = '/admin/users';
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +49,7 @@ class AdminUsersController extends Controller
      */
     public function store(AdminUsersRequest $request)
     {
-        $inputs = $request->all();
+        $inputs = $this->getInputs($request);
 
         if ($file = $request->file('photo')) {
             $name = time() . $file->getClientOriginalName();
@@ -53,11 +58,9 @@ class AdminUsersController extends Controller
             $inputs['photo_id'] = $photo->id;
         }
 
-        $inputs['password'] = bcrypt($request->get('password'));
-
         User::create($inputs);
 
-        return redirect('/admin/users');
+        return redirect($this->usersPage);
     }
 
     /**
@@ -83,7 +86,7 @@ class AdminUsersController extends Controller
 
         $roles = Role::lists('name', 'id')->all();
 
-        return view('admin.users.edit', ['user' => $user, 'roles' => $roles]);
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -93,9 +96,21 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminUsersRequest $request, $id)
     {
-        //
+        /**
+         * @var $user \App\User.
+         */
+        $user = User::findOrFail($id);
+        $inputs = $this->getInputs($request);
+
+        if (($file = $request->file('photo')) && ($file_id = $this->fileUpload($file))) {
+            $inputs['photo_id'] = $file_id;
+        }
+
+        $user->update($inputs);
+
+        return redirect($this->usersPage);
     }
 
     /**
@@ -107,5 +122,42 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Upload user avatar.
+     *
+     * @param UploadedFile $file
+     * @param Photo $photo
+     * @return bool|mixed
+     */
+    public function fileUpload(UploadedFile $file) {
+        if (!is_object($file)) {
+            return false;
+        }
+
+        $name = Carbon::now() . $file->getClientOriginalName();
+        $file->move('images', $name);
+        $photo = Photo::create(['file' => $name]);
+
+        return $photo->id;
+    }
+
+    /**
+     * Get users form inputs.
+     *
+     * @param AdminUsersRequest $request
+     * @return array
+     */
+    public function getInputs(AdminUsersRequest $request) {
+        if (trim($request->password == '')) {
+            $inputs = $request->except('password');
+        }
+        else {
+            $inputs = $request->all();
+            $inputs['password'] = bcrypt($request->password);
+        }
+
+        return $inputs;
     }
 }
