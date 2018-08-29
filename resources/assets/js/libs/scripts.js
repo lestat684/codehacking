@@ -16,8 +16,6 @@ $(document).ready(function(){
         }
     });
 
-
-
     /**************** User avatar preiview display *****/
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -39,9 +37,6 @@ $(document).ready(function(){
 
 
     /**************** User Profile **********************/
-
-
-
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');
     panels.hide();
@@ -69,15 +64,5 @@ $(document).ready(function(){
 
 
     $('[data-toggle="tooltip"]').tooltip();
-
-    //$('button').click(function(e) {
-    //    e.preventDefault();
-    //    alert("This is a demo.\n :-)");
-    //});
-
-
-
-
-
 
 });

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -39,5 +40,13 @@ class User extends Authenticatable
 
     public function photo() {
         return $this->belongsTo('App\Photo');
+    }
+
+    public function isAdmin() {
+        if($this->role->name === 'admin' && $this->getAttribute('is_active')) {
+            return true;
+        }
+
+        return false;
     }
 }

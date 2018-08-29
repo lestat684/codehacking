@@ -2555,7 +2555,13 @@ $(document).ready(function(){
     //});
 
 
+    /*************Delete button****************/
 
+    $('a[data-type="delete"]').on('click', function (e) {
+        if (!confirm('Are you sure you want to delete?')) return;
+        e.preventDefault();
+        $(this).find('#user-delete').submit();
+    });
 
 
 

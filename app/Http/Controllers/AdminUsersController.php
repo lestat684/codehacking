@@ -7,10 +7,7 @@ use App\Photo;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AdminUsersController extends Controller
@@ -59,6 +56,7 @@ class AdminUsersController extends Controller
         }
 
         User::create($inputs);
+        Session::flash('user_crud', ['status' => 'success', 'message' => "User {$inputs['name']} has been created!"]);
 
         return redirect($this->usersPage);
     }
@@ -121,7 +119,19 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user_name = $user->name;
+
+        if ($user->delete()) {
+            if($user->photo) {
+                Photo::findOrFail($user->photo->id)->delete();
+                unlink(public_path() . '/' . $user->photo->file);
+            }
+
+            Session::flash('user_crud', ['status' => 'danger', 'message' => "User {$user_name} has been deleted!"]);
+        }
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

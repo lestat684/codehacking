@@ -1,7 +1,18 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if(Session::has('user_crud'))
+        <div class="alert alert-{{session('user_crud')['status']}}">
+            <strong>{{session('user_crud')['message']}}</strong>
+        </div>
+    @endif
+
     <h1>Users</h1>
+
+    <div class="options">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Create user</a>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -13,6 +24,7 @@
                 <th>Status</th>
                 <th>Created</th>
                 <th>Updated</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +42,16 @@
                     <td>{!! $user->is_active ? 'Active' : 'Blocked' !!}</td>
                     <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>{{ $user->updated_at->diffForHumans() }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('admin.users.edit', [$user->id]) }}">Edit</a></li>
+                                <li><a href="{{ route('admin.user.delete', [$user->id]) }}">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
             @endforeach
         </tbody>
     </table>
