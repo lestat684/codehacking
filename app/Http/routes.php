@@ -30,4 +30,5 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/admin/posts/{id}/delete', ['uses' => 'AdminPostsController@destroy', 'as' => 'admin.post.delete']);
     Route::resource('/admin/categories', 'AdminCategoriesController');
     Route::get('/admin/categories/{id}/delete', ['uses' => 'AdminCategoriesController@destroy', 'as' => 'admin.category.delete']);
+    Route::get('/admin/media', 'AdminMediaController@index');
 });

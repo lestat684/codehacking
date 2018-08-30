@@ -11,6 +11,6 @@ class Photo extends Model
     protected $upload_dir = '/images';
 
     public function getFileAttribute($photo) {
-        return "{$this->upload_dir}/$photo";
+        return file_exists(public_path() . DIRECTORY_SEPARATOR . "{$this->upload_dir}/$photo") ? "{$this->upload_dir}/$photo" : "{$this->upload_dir}/400x400.png";
     }
 }
