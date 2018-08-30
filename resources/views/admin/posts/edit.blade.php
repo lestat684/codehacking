@@ -45,6 +45,7 @@
         <div class="form-group">
             {!! Form::submit('Update post', ['class' => 'btn btn-primary']) !!}
             <a href="{{ route('admin.post.delete', [$post->id]) }}" class="btn btn-danger">Delete</a>
+            <a href="{{ URL::previous() }}" class="btn btn-default">Cancel</a>
         </div>
     {!! Form::close() !!}
 @endsection

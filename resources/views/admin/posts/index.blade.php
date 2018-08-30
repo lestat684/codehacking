@@ -53,6 +53,8 @@
                         </td>
                     </tr>
                 @endforeach
+            @else
+                <p class="text-center">No posts has been found</p>
             @endif
     </table>
 

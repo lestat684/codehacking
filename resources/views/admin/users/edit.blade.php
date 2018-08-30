@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="col-sm-6">
-        <div class="row"><a href="{{ URL::previous() }}" class="btn btn-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
-
         <h1>Edit <strong>{{ $user->name }}</strong></h1>
 
         <div class="col-sm-2">
@@ -42,6 +40,7 @@
                 <div class="form-group">
                     {!! Form::submit('Update user', ['class' => 'btn btn-primary']) !!}
                     <a class="btn btn-danger" href="{{ route('admin.user.delete', [$user->id]) }}">Delete</a>
+                    <a href="{{ URL::previous() }}" class="btn btn-default">Cancel</a>
                 </div>
             {!! Form::close() !!}
         </div>

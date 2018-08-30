@@ -28,4 +28,6 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/admin/users/{id}/delete', ['uses' => 'AdminUsersController@destroy', 'as' => 'admin.user.delete']);
     Route::resource('/admin/posts', 'AdminPostsController');
     Route::get('/admin/posts/{id}/delete', ['uses' => 'AdminPostsController@destroy', 'as' => 'admin.post.delete']);
+    Route::resource('/admin/categories', 'AdminCategoriesController');
+    Route::get('/admin/categories/{id}/delete', ['uses' => 'AdminCategoriesController@destroy', 'as' => 'admin.category.delete']);
 });
