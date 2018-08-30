@@ -30,4 +30,12 @@ class AdminPostsRequest extends Request
             'photo_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'photo_id.required' => 'The photo field is required',
+            'category_id.required' => 'The category field is required',
+        ];
+    }
 }

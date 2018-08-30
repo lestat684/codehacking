@@ -55,7 +55,7 @@ class AdminPostsController extends Controller
 
         if($file = $request->file('photo_id')) {
             $name = Carbon::now() . $file->getClientOriginalName();
-            $file->move('images/posts', $name);
+            $file->move('images/', $name);
             $photo = Photo::create(['file' => $name]);
             $inputs['photo_id'] = $photo->id;
         }
@@ -87,20 +87,39 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         //
+
+        $post = Post::findOrFail($id);
+        $categories = Category::lists('name', 'id')->all();
+
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AdminPostsRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminPostsRequest $request, $id)
     {
         //
+        $inputs = $request->all();
+        $post = Post::findOrFail($id);
 
-        return view('admin.posts.edit');
+        if($file = $request->file('photo_id')) {
+            // Create new.
+            $name = Carbon::now()->timestamp . $file->getClientOriginalName();
+            $file->move('images/', $name);
+            $photo = Photo::create(['file' => $name]);
+            $inputs['photo_id'] = $photo->id;
+        }
+
+        if ($post->update($inputs)) {
+            return redirect()->route('admin.posts.index');
+        }
+
+        return back()->with('message', ['status' => 'danger', 'message' => "Something went wrong!"]);
     }
 
     /**
@@ -111,6 +130,11 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        unlink(public_path() . DIRECTORY_SEPARATOR . $post->photo->file);
+        Photo::find($post->photo->id)->delete();
+        $post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 }
