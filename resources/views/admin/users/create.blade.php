@@ -6,10 +6,10 @@
     <div class="col-sm-2 form-group">
         <img src="http://placehold.it/400x400" alt='' class='img-responsive img-rounded profileavatar'>
     </div>
-    <div class="col-9 form-group">
+    <div class="col-sm-10 form-group">
         @include('includes.form-errors')
 
-        {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'files' => true, 'class' => 'col-sm-6 col-md-4']) !!}
+        {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'files' => true]) !!}
             <div class="form-group">
                 {!! Form::label('photo', 'Users photo:') !!}
                 {!! Form::file('photo', ['id' => 'avatar']) !!}

@@ -21,9 +21,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/admin', function() {
 	return view('admin.index');
-});
+})->middleware(['admin']);
 
 Route::group(['middleware' => 'admin'], function() {
     Route::resource('/admin/users', 'AdminUsersController');
     Route::get('/admin/users/{id}/delete', ['uses' => 'AdminUsersController@destroy', 'as' => 'admin.user.delete']);
+    Route::resource('/admin/posts', 'AdminPostsController');
+    Route::get('/admin/posts/{$id}', ['uses' => 'AdminPostsController@destroy', 'as' => 'admin.post.delete']);
 });

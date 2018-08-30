@@ -29,24 +29,39 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+
+    /**
+     * Relationship One to Onn for Role.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function role() {
     	return $this->belongsTo('App\Role');
     }
-    
-    public function roles() {
-      return $this->hasMany('App\Role', 'id');
-    }
 
+    /**
+     *  Relationship One to Onn for Image.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function photo() {
         return $this->belongsTo('App\Photo');
     }
 
+    /**
+     * Check access for user admin with active.
+     *
+     * @return bool
+     */
     public function isAdmin() {
         if($this->role->name === 'admin' && $this->getAttribute('is_active')) {
             return true;
         }
 
         return false;
+    }
+
+    public function posts() {
+        return $this->hasMany('App\Post');
     }
 }
