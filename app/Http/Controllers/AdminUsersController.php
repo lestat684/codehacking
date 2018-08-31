@@ -56,7 +56,7 @@ class AdminUsersController extends Controller
         }
 
         User::create($inputs);
-        Session::flash('user_crud', ['status' => 'success', 'message' => "User {$inputs['name']} has been created!"]);
+        Session::flash('message', ['status' => 'success', 'message' => "User {$inputs['name']} has been created!"]);
 
         return redirect($this->usersPage);
     }
@@ -128,7 +128,7 @@ class AdminUsersController extends Controller
                 unlink(public_path() . '/' . $user->photo->file);
             }
 
-            Session::flash('user_crud', ['status' => 'danger', 'message' => "User {$user_name} has been deleted!"]);
+            Session::flash('message', ['status' => 'danger', 'message' => "User {$user_name} has been deleted!"]);
         }
 
         return redirect()->route('admin.users.index');

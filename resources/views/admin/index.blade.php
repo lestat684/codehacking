@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <h1 class="text-center">Administration panel</h1>
+    <h1 class="text-center">Administration panel</h1>
 
-        <div class="col-9 text-center"></div>
-    </div>
+    <div class="col-9 text-center"></div>
 @endsection

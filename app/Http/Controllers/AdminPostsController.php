@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Photo;
 use App\Post;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminPostsRequest;
@@ -136,5 +138,22 @@ class AdminPostsController extends Controller
         $post->delete();
 
         return redirect()->route('admin.posts.index');
+    }
+
+    public function post($id) {
+        $post = Post::findOrFail($id);
+        $comments_data = [];
+        $categories = Category::select('name')->get();
+        foreach($post->comments as $comment) {
+            $comments_data[$comment->id] = [
+                'body' => $comment->body,
+                'created_at' => $comment->created_at->diffForHumans(),
+                'author' => $comment->author,
+                'status' => $comment->is_active,
+                'photo' => (User::where('name', $comment->author)->first())->photo->file
+            ];
+        }
+
+        return view('post', compact('post', 'categories', 'comments_data'));
     }
 }

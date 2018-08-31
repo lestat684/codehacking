@@ -20,6 +20,8 @@ class Admin
             return $next($request);
         }
 
+        session()->flash('message', ['status' => 'danger', 'message' => "You're not allowed to visit this page!!!"]);
+
         return redirect('/');
     }
 }

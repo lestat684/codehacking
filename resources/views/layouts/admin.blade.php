@@ -26,22 +26,26 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
           integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+    @yield('styles')
 </head>
 
-<body id="admin-page">
+<body id="app-layout">
 
 <div id="wrapper">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="{{ url('/home') }}">Simple blog</a>
         </div>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
@@ -129,6 +133,9 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
+                        <a href="{{ route('admin.comments.index') }}"><i class="fa fa-dashboard fa-fw"></i> Comments</a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.categories.index') }}"><i class="fa fa-wrench fa-fw"></i>Categories</a>
                         <!-- /.nav-second-level -->
                     </li>
@@ -136,11 +143,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/media">All Media</a>
+                                <a href="{{ route('admin.media.index') }}">All Media</a>
                             </li>
 
                             <li>
-                                <a href="">Upload Media</a>
+                                <a href="{{ route('admin.media.create') }}">Upload Media</a>
                             </li>
 
                         </ul>
@@ -270,6 +277,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
+                    @include('includes.status-message')
+
                     @yield('content')
                 </div>
             </div>

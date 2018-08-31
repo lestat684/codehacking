@@ -2,11 +2,7 @@
 
 @section('content')
 
-    @if(Session::has('message'))
-        <div class="alert alert-{{session('message')['status']}}">
-            <strong>{{session('message')['message']}}</strong>
-        </div>
-    @endif
+    @include('includes.status-message')
 
     <h1 class="text-center">Posts</h1>
 
@@ -24,6 +20,7 @@
             <th>Content</th>
             <th>Author</th>
             <th>Category</th>
+            <th>Comments</th>
             <th>Created</th>
             <th>Updated</th>
             <th></th>
@@ -35,10 +32,11 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" height="50" alt=""></td>
-                        <td>{{ $post->title }}</td>
+                        <td><a href="{{ route('home.post', [$post->id]) }}">{{ $post->title }}</a></td>
                         <td>{{ str_limit($post->body, 20) }}</td>
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->category->name }}</td>
+                        <td><a href="{{ route('admin.comments.show', [$post->id]) }}">View comments</a></td>
                         <td>{{ $post->created_at->diffForHumans() }}</td>
                         <td>{{ $post->updated_at->diffForHumans() }}</td>
                         <td>

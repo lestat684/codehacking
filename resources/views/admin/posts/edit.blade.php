@@ -3,12 +3,6 @@
 @section('content')
     <h1 class="text-center">Update post</h1>
 
-    @if(Session::has('message'))
-        <div class="alert alert-{{session('message')['status']}}">
-            <strong>{{session('message')['message']}}</strong>
-        </div>
-    @endif
-
     <div class="col-sm-2 form-group">
         <img src="{{$post->photo ? $post->photo->file : 'http://placehold.it/400x400'}}" alt='' class='img-responsive img-rounded profileavatar'>
     </div>

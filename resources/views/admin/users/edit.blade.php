@@ -5,7 +5,7 @@
         <h1>Edit <strong>{{ $user->name }}</strong></h1>
 
         <div class="col-sm-2">
-            <img src="{{ $user->photo ? $user->photo->file : 'http://placehold.it/400x400' }}" class="img-responsive img-rounded" alt="">
+            <img src="{{ $user->photo ? $user->photo->file : 'http://placehold.it/400x400' }}" class="img-responsive img-rounded profileavatar" alt="">
         </div>
 
         <div class="col-sm-10">

@@ -1,11 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    @if(Session::has('user_crud'))
-        <div class="alert alert-{{session('user_crud')['status']}}">
-            <strong>{{session('user_crud')['message']}}</strong>
-        </div>
-    @endif
+    @include('includes.status-message')
 
     <h1 class="text-center">Users</h1>
 

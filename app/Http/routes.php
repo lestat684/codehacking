@@ -19,16 +19,28 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/admin', function() {
-	return view('admin.index');
-})->middleware(['admin']);
+Route::get('/post/{id}', ['uses' => 'AdminPostsController@post', 'as' => 'home.post']);
 
-Route::group(['middleware' => 'admin'], function() {
-    Route::resource('/admin/users', 'AdminUsersController');
+Route::group(
+    ['middleware' => 'admin'], function() {
+
+
+    Route::get('/admin', function() {
+        return view('admin.index');
+    })->middleware(['admin']);
+
+
+    Route::resources([
+        '/admin/users' => 'AdminUsersController',
+        '/admin/posts' => 'AdminPostsController',
+        '/admin/categories' => 'AdminCategoriesController',
+        '/admin/media' => 'AdminMediaController',
+        '/admin/comments' => 'PostCommentsController',
+        '/admin/comment/replies' => 'CommentRepliesController',
+    ]);
+
     Route::get('/admin/users/{id}/delete', ['uses' => 'AdminUsersController@destroy', 'as' => 'admin.user.delete']);
-    Route::resource('/admin/posts', 'AdminPostsController');
     Route::get('/admin/posts/{id}/delete', ['uses' => 'AdminPostsController@destroy', 'as' => 'admin.post.delete']);
-    Route::resource('/admin/categories', 'AdminCategoriesController');
     Route::get('/admin/categories/{id}/delete', ['uses' => 'AdminCategoriesController@destroy', 'as' => 'admin.category.delete']);
-    Route::get('/admin/media', 'AdminMediaController@index');
+    Route::get('/admin/comment/{id}/delete', ['uses' => 'PostCommentsController@destroy', 'as' => 'admin.comment.delete']);
 });

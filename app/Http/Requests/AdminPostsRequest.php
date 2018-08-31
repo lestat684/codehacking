@@ -25,9 +25,8 @@ class AdminPostsRequest extends Request
     {
         return [
             'title' => 'required|min:3',
-            'body' => 'required|min:10|max:300',
+            'body' => 'required|min:10',
             'category_id' => 'required',
-            'photo_id' => 'required',
         ];
     }
 
