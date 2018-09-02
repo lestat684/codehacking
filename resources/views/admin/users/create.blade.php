@@ -8,8 +8,6 @@
             <img src="http://placehold.it/400x400" alt='' class='img-responsive img-rounded profileavatar'>
         </div>
         <div class="col-sm-10 form-group">
-            @include('includes.form-errors')
-
             {!! Form::open(['method' => 'post', 'action' => 'AdminUsersController@store', 'files' => true]) !!}
                 <div class="form-group">
                     {!! Form::label('photo', 'Users photo:') !!}

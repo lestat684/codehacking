@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    @include('includes.status-message')
-
     <h1 class="text-center">Users</h1>
 
     @if(!empty($users))

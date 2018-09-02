@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminPostsRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -63,7 +64,10 @@ class AdminPostsController extends Controller
         }
 
         if ($user->posts()->create($inputs)) {
-            return redirect()->route('admin.posts.index');
+
+          Session::flash('message', ['status' => 'success', 'message' => "Post {$inputs['title']} has been created!"]);
+
+          return redirect()->route('admin.posts.index');
         }
 
         return back()->with('message', 'Something went wrong!!!');
@@ -92,6 +96,7 @@ class AdminPostsController extends Controller
 
         $post = Post::findOrFail($id);
         $categories = Category::lists('name', 'id')->all();
+        Session::flash('message', ['status' => 'success', 'message' => "Post {$post->title} has been updated!"]);
 
         return view('admin.posts.edit', compact('post', 'categories'));
     }
@@ -133,24 +138,31 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        unlink(public_path() . DIRECTORY_SEPARATOR . $post->photo->file);
-        Photo::find($post->photo->id)->delete();
+        if ($post->file) {
+            unlink(public_path() . DIRECTORY_SEPARATOR . $post->photo->file);
+            Photo::find($post->photo->id)->delete();
+        }
+
+        Session::flash('message', ['status' => 'success', 'message' => "Post {$post->title} has been deleted!"]);
         $post->delete();
 
-        return redirect()->route('admin.posts.index');
+      return redirect()->route('admin.posts.index');
     }
 
-    public function post($id) {
+    public function post($id)
+    {
         $post = Post::findOrFail($id);
         $comments_data = [];
         $categories = Category::select('name')->get();
         foreach($post->comments as $comment) {
+            $photo = (User::where('name', $comment->author)->first())->photo;
+
             $comments_data[$comment->id] = [
                 'body' => $comment->body,
                 'created_at' => $comment->created_at->diffForHumans(),
                 'author' => $comment->author,
                 'status' => $comment->is_active,
-                'photo' => (User::where('name', $comment->author)->first())->photo->file
+                'photo' => $photo ? $photo->file : ''
             ];
         }
 

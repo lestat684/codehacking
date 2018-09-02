@@ -1,9 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>Comments for <a href="{{ route('home.post', [$post->id]) }}">{{ !empty($post) ? $post->title : '' }}</a> post</h1>
+    @if(empty($post))
+        <h1>Comments</h1>
+    @else
+        <h1>Comments for <a href="{{ route('home.post', [$post->id]) }}">{{ $post->title }}</a> post</h1>
+    @endif
 
-    <div class="row">
+    @if(!empty($comments))
+        <div class="row">
         <div class="col-sm-12">
             <table class="table">
                 <thead>
@@ -46,4 +51,7 @@
             </table>
         </div>
     </div>
+    @else
+        <p class="text-center">No comments has been found</p>
+    @endif
 @endsection

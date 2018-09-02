@@ -1,33 +1,28 @@
 @extends('layouts.admin')
 
 @section('content')
-
-    @include('includes.status-message')
-
     <h1 class="text-center">Posts</h1>
 
-    <div class="options">
-        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Create post</a>
-    </div>
-
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Comments</th>
-            <th>Created</th>
-            <th>Updated</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-            @if($posts)
+    @if(count($posts) > 0)
+        <div class="options">
+            <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Create post</a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Comments</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
                 @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
@@ -51,9 +46,9 @@
                         </td>
                     </tr>
                 @endforeach
-            @else
-                <p class="text-center">No posts has been found</p>
-            @endif
-    </table>
+        </table>
+    @else
+        <p class="text-center">No posts has been found</p>
+    @endif
 
 @endsection
