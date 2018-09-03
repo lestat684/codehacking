@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+    @include('includes.tinyeditor')
     <h1 class="text-center">Create post</h1>
 
     @if(Session::has('message'))

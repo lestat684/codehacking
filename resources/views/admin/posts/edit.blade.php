@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+    @include('includes.tinyeditor')
     <h1 class="text-center">Update post</h1>
 
     <div class="col-sm-2 form-group">
