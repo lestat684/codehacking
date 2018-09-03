@@ -19,6 +19,7 @@
                     <th>Created</th>
                     <th>Updated</th>
                     <th>Post link</th>
+                    <th></th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -32,6 +33,7 @@
                             <td>{{ $comment->created_at->diffForHumans() }}</td>
                             <td>{{ $comment->updated_at->diffForHumans() }}</td>
                             <td><a href="{{ route('home.post', [$comment->post->id]) }}">{{ $comment->post->title }}</a></td>
+                            <td><a href="{{ route('admin.replies.show', [$comment->post->id]) }}">View replies</a></td>
                             <td>
                                 {!! Form::open(['method' => 'PATCH', 'action' => ['PostCommentsController@update', $comment->id]]) !!}
                                     {!! Form::hidden('is_active', !$comment->is_active) !!}

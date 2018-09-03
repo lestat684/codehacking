@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Comment;
+use App\CommentReply;
 use App\Photo;
 use App\Post;
 use App\User;
@@ -152,20 +153,8 @@ class AdminPostsController extends Controller
     public function post($id)
     {
         $post = Post::findOrFail($id);
-        $comments_data = [];
         $categories = Category::select('name')->get();
-        foreach($post->comments as $comment) {
-            $photo = (User::where('name', $comment->author)->first())->photo;
 
-            $comments_data[$comment->id] = [
-                'body' => $comment->body,
-                'created_at' => $comment->created_at->diffForHumans(),
-                'author' => $comment->author,
-                'status' => $comment->is_active,
-                'photo' => $photo ? $photo->file : ''
-            ];
-        }
-
-        return view('post', compact('post', 'categories', 'comments_data'));
+        return view('post', compact('post', 'categories'));
     }
 }

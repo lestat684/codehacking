@@ -17,4 +17,9 @@ class CommentReply extends Model
     public function comment() {
         return $this->belongsTo('App\Comment');
     }
+
+    public function getPhotoAttribute() {
+        $photo = (User::where('name', $this->getAttribute('author'))->first())->photo;
+        return $photo ? $photo->file : '';
+    }
 }

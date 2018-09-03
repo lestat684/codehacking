@@ -19,8 +19,11 @@ class Comment extends Model
     }
 
     public function replies() {
-        return $this->hasMany('App\Reply');
+        return $this->hasMany('App\CommentReply');
     }
 
-
+    public function getPhotoAttribute() {
+        $photo = (User::where('name', $this->getAttribute('author'))->first())->photo;
+        return $photo ? $photo->file : '';
+    }
 }
