@@ -153,7 +153,7 @@ class AdminPostsController extends Controller
 
     public function post($slug)
     {
-        $post = Post::findBySlug($slug);
+        $post = Post::findBySlugOrFail($slug);
         $categories = Category::select('name')->get();
 
         return view('post', compact('post', 'categories'));

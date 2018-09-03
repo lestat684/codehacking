@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class Post extends Model
 {
+
+    use Sluggable;
+    use SluggableScopeHelpers;
     //
 
     protected $fillable = [
@@ -16,7 +21,22 @@ class Post extends Model
         'user_id'
     ];
 
-    public function user() {
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+          'slug' => [
+            'source' => 'title'
+          ]
+        ];
+    }
+
+
+  public function user() {
         return $this->belongsTo('App\User');
     }
 
