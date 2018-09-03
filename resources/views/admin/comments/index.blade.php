@@ -32,7 +32,7 @@
                             <td>{{ $comment->body }}</td>
                             <td>{{ $comment->created_at->diffForHumans() }}</td>
                             <td>{{ $comment->updated_at->diffForHumans() }}</td>
-                            <td><a href="{{ route('home.post', [$comment->post->id]) }}">{{ $comment->post->title }}</a></td>
+                            <td><a href="{{ route('home.post', [$comment->post->slug]) }}">{{ $comment->post->title }}</a></td>
                             <td><a href="{{ route('admin.replies.show', [$comment->post->id]) }}">View replies</a></td>
                             <td>
                                 {!! Form::open(['method' => 'PATCH', 'action' => ['PostCommentsController@update', $comment->id]]) !!}

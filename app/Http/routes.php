@@ -15,15 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::get('/post/{id}', ['uses' => 'AdminPostsController@post', 'as' => 'home.post']);
 
 Route::group(['middleware' => 'admin'], function() {
-
-
     Route::get('/admin', function() {
         return view('admin.index');
     })->middleware(['admin']);

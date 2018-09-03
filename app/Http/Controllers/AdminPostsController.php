@@ -23,7 +23,8 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(2);
+//        $posts = Post::all();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -39,7 +40,7 @@ class AdminPostsController extends Controller
         /**
          * @var $categories \App\Category.
          */
-        $categories = Category::lists('name', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.create', compact('categories'));
     }
@@ -96,8 +97,7 @@ class AdminPostsController extends Controller
         //
 
         $post = Post::findOrFail($id);
-        $categories = Category::lists('name', 'id')->all();
-        Session::flash('message', ['status' => 'success', 'message' => "Post {$post->title} has been updated!"]);
+        $categories = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.edit', compact('post', 'categories'));
     }
@@ -124,6 +124,7 @@ class AdminPostsController extends Controller
         }
 
         if ($post->update($inputs)) {
+            Session::flash('message', ['status' => 'success', 'message' => "Post {$post->title} has been updated!"]);
             return redirect()->route('admin.posts.index');
         }
 
@@ -150,9 +151,9 @@ class AdminPostsController extends Controller
       return redirect()->route('admin.posts.index');
     }
 
-    public function post($id)
+    public function post($slug)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findBySlug($slug);
         $categories = Category::select('name')->get();
 
         return view('post', compact('post', 'categories'));

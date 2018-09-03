@@ -27,7 +27,7 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" height="50" alt=""></td>
-                        <td><a href="{{ route('home.post', [$post->id]) }}">{{ $post->title }}</a></td>
+                        <td><a href="{{ route('home.post', [$post->slug]) }}">{{ $post->title }}</a></td>
                         <td>{{ str_limit($post->body, 20) }}</td>
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->category->name }}</td>
@@ -47,6 +47,12 @@
                     </tr>
                 @endforeach
         </table>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-5">
+                {{ $posts->render() }}
+            </div>
+        </div>
     @else
         <p class="text-center">No posts has been found</p>
     @endif
