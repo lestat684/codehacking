@@ -32,6 +32,8 @@ Route::group(['middleware' => 'admin'], function() {
         'update' => 'admin.posts.update',
     ]]);
 
+    Route::post('admin/posts/delete/multiple', 'AdminPostsController@bulkDelete');
+
     Route::resource('admin/comments', 'PostCommentsController', ['names' => [
         'index' => 'admin.comments.index',
         'create' => 'admin.comments.create',

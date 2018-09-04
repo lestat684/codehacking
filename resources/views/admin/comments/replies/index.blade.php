@@ -18,6 +18,7 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     @if($replies)
                         @foreach($replies as $reply)
                             <tr>

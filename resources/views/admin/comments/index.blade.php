@@ -4,7 +4,7 @@
     @if(empty($post))
         <h1>Comments</h1>
     @else
-        <h1>Comments for <a href="{{ route('home.post', [$post->id]) }}">{{ $post->title }}</a> post</h1>
+        <h1>Comments for <a href="{{ route('home.post', [$post->slug]) }}">{{ $post->title }}</a> post</h1>
     @endif
 
     @if(!empty($comments))
@@ -33,7 +33,7 @@
                             <td>{{ $comment->created_at->diffForHumans() }}</td>
                             <td>{{ $comment->updated_at->diffForHumans() }}</td>
                             <td><a href="{{ route('home.post', [$comment->post->slug]) }}">{{ $comment->post->title }}</a></td>
-                            <td><a href="{{ route('admin.replies.show', [$comment->post->id]) }}">View replies</a></td>
+                            <td><a href="{{ route('admin.replies.show', [$comment->id]) }}">View replies</a></td>
                             <td>
                                 {!! Form::open(['method' => 'PATCH', 'action' => ['PostCommentsController@update', $comment->id]]) !!}
                                     {!! Form::hidden('is_active', !$comment->is_active) !!}

@@ -9,6 +9,7 @@ use App\Photo;
 use App\Post;
 use App\User;
 use Carbon\Carbon;
+use http\Url;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminPostsRequest;
 use Illuminate\Support\Facades\Auth;
@@ -157,5 +158,22 @@ class AdminPostsController extends Controller
         $categories = Category::select('name')->get();
 
         return view('post', compact('post', 'categories'));
+    }
+
+    public function bulkDelete(Request $request) {
+        try {
+
+
+            Post::whereIn('id', $request->get('checkboxBoxArray'))->delete();
+
+            foreach (Photo::findOrFail($request->get('checkboxBoxArray')) as $photo) {
+                Photo::find($photo)->delete();
+            }
+
+            return redirect()->route('admin.posts.index');
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

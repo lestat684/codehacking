@@ -4,12 +4,30 @@
     <h1 class="text-center">Posts</h1>
 
     @if(count($posts) > 0)
-        <div class="options">
-            <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Create post</a>
-        </div>
-        <table class="table">
+
+
+        {!! Form::open(['method' => 'post', 'action' => 'AdminPostsController@bulkDelete']) !!}
+                <div class="row col-sm-12 form-group">
+                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Create post</a>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {!! Form::select('options', [
+                           '' => 'Choose operation',
+                           'delete' => 'Delete',
+                        ], null, ['class' => 'form-control inline-sm']); !!}
+                        </div>
+                        <div class="col-sm-2">
+                            {!! Form::submit('Submit', ['class' => 'btn btn-primary delete-submit']) !!}
+                        </div>
+                    </div>
+                </div>
+
+            <table class="table">
             <thead>
             <tr>
+                <th>{!! Form::checkbox('all', 'value', false, ['id' => 'options']); !!}</th>
                 <th>Id</th>
                 <th>Image</th>
                 <th>Title</th>
@@ -25,6 +43,7 @@
             <tbody>
                 @foreach($posts as $post)
                     <tr>
+                        <th>{!! Form::checkbox('checkboxBoxArray[]', $post->id, false, ['class' => 'post-item']); !!}</th>
                         <td>{{ $post->id }}</td>
                         <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" height="50" alt=""></td>
                         <td><a href="{{ route('home.post', [$post->slug]) }}">{{ $post->title }}</a></td>
@@ -47,6 +66,7 @@
                     </tr>
                 @endforeach
         </table>
+        {!! Form::close() !!}
 
         <div class="row">
             <div class="col-sm-6 col-sm-offset-5">
@@ -57,4 +77,37 @@
         <p class="text-center">No posts has been found</p>
     @endif
 
+@endsection
+
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            selectCheck();
+
+            $('select[name=options]').change(function () {
+                selectCheck();
+            });
+
+            $('#options').click(function (event) {
+                if (this.checked) {
+                    $('.post-item').each(function () { //loop through each checkbox
+                        $(this).prop('checked', true); //check
+                    });
+                } else {
+                    $('.post-item').each(function () { //loop through each checkbox
+                        $(this).prop('checked', false); //uncheck
+                    });
+                }
+            });
+
+            function selectCheck () {
+                if ($('select[name=options] option:selected').val() === '') {
+                    $('.delete-submit').prop('disabled', true);
+                }
+                else {
+                    $('.delete-submit').removeAttr('disabled');
+                }
+            }
+        });
+    </script>
 @endsection
