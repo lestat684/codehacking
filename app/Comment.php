@@ -14,16 +14,22 @@ class Comment extends Model
         'body'
     ];
 
-    public function post() {
+    public function post()
+    {
         return $this->belongsTo('App\Post');
     }
 
-    public function replies() {
+    public function replies()
+    {
         return $this->hasMany('App\CommentReply');
     }
 
-    public function getPhotoAttribute() {
-        $photo = (User::where('name', $this->getAttribute('author'))->first())->photo;
-        return $photo ? $photo->file : '';
+    public function getPhotoAttribute()
+    {
+        if ($user = User::where('name', $this->getAttribute('author'))->first()) {
+            $photo = $user->photo;
+        }
+
+        return !empty($photo) ? $photo->file : 'http://placehold.it/64x64';
     }
 }
