@@ -29,9 +29,8 @@
             <tr>
                 <th>{!! Form::checkbox('all', 'value', false, ['id' => 'options']); !!}</th>
                 <th>Id</th>
-                <th>Image</th>
                 <th>Title</th>
-                <th>Content</th>
+                <th>Image</th>
                 <th>Author</th>
                 <th>Category</th>
                 <th>Comments</th>
@@ -45,9 +44,8 @@
                     <tr>
                         <th>{!! Form::checkbox('checkboxBoxArray[]', $post->id, false, ['class' => 'post-item']); !!}</th>
                         <td>{{ $post->id }}</td>
+                        <td>{{ $post->title }}</td>
                         <td><img src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/400x400' }}" height="50" alt=""></td>
-                        <td><a href="{{ route('home.post', [$post->slug]) }}">{{ $post->title }}</a></td>
-                        <td>{{ str_limit($post->body, 20) }}</td>
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->category->name }}</td>
                         <td><a href="{{ route('admin.comments.show', [$post->id]) }}">View comments</a></td>

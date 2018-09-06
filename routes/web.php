@@ -7,15 +7,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::get('/post/{id}', ['uses' => 'AdminPostsController@post', 'as' => 'home.post']);
 
-Route::group(['middleware' => 'admin'], function() {
-    Route::get('/admin', function() {
-        return view('admin.index');
-    })->middleware(['admin']);
-
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin', 'AdminController@index');
 
     Route::resource('admin/users', 'AdminUsersController', ['names' => [
         'index' => 'admin.users.index',
